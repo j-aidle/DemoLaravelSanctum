@@ -10,15 +10,14 @@
         <label>Password:</label>
         <input v-model="password" type="password" required />
       </div>
-      <button type="submit">Login</button>/
+      <button type="submit">Login</button>
     </form>
-    <p v-if="error" style="color: red">{{ error }}</p>
+    <p v-if="error" style="color: red;">{{ error }}</p>
   </div>
 </template>
 
 <script>
-
-import apiClient from "../axios.js";
+import apiClient from '../axios';
 
 export default {
   data() {
@@ -27,7 +26,7 @@ export default {
       password: '',
       deviceName: 'web',
       error: null,
-    }
+    };
   },
   methods: {
     async login() {
@@ -35,16 +34,17 @@ export default {
         const response = await apiClient.post('/api/login', {
           email: this.email,
           password: this.password,
-          deviceName: this.deviceName,
+          device_name: this.deviceName,
         });
         localStorage.setItem('token', response.data.token);
         this.error = null;
-        alert('Login successfully!');
+        alert('Login successful!');
         this.$router.push('/dashboard');
+
       } catch (err) {
-        this.error = 'Login failed. Please check your credentials.'
+        this.error = 'Login failed. Please check your credentials.';
       }
     },
   },
-}
+};
 </script>
